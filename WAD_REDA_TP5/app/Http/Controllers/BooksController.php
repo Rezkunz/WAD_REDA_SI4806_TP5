@@ -24,7 +24,7 @@ class BooksController extends Controller
      */
     public function store(Request $request)
     {
-        // Validasi input buku
+
         $validator = Validator::make($request->all(), [
             'title'           => 'required|string|max:255',
             'author'          => 'required|string|max:255',
@@ -38,7 +38,6 @@ class BooksController extends Controller
             ], 422);
         }
 
-        // Create book
         $book = Book::create([
             'title'          => $request->title,
             'author'         => $request->author,
@@ -83,7 +82,6 @@ class BooksController extends Controller
             ], 404);
         }
 
-        // Validasi update
         $validator = Validator::make($request->all(), [
             'title'           => 'string|max:255',
             'author'          => 'string|max:255',
@@ -97,7 +95,6 @@ class BooksController extends Controller
             ], 422);
         }
 
-        // Update buku
         $book->update($request->only('title', 'author', 'published_year'));
 
         return response()->json([
@@ -141,7 +138,6 @@ class BooksController extends Controller
             ], 404);
         }
 
-        // Toggle status is_available
         $book->is_available = !$book->is_available;
         $book->save();
 
